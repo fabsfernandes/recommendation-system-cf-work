@@ -19,6 +19,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import br.com.ufu.lsi.recsys.main.MatrixLoader;
 import br.com.ufu.lsi.recsys.model.Rating;
+import br.com.ufu.lsi.recsys.util.Printer;
 
 
 public class TestBaseGenerator {
@@ -29,11 +30,15 @@ public class TestBaseGenerator {
 
     private static final int LEVEL_NUMBER = 4;
     
-    private static final String RATINGS_TEST_PATH = "/home/fabiola/Desktop/Doutorado/DataMining/Projeto-Recomendacao/teste/ratings_test.txt";
+    private static String RATINGS_TEST_PATH;
 
-    private static final String RATINGS_TRAINING_PATH = "/home/fabiola/Desktop/Doutorado/DataMining/Projeto-Recomendacao/treino/ratings_training.txt";
+    private static String RATINGS_TRAINING_PATH;
     
-    private static final String USERS_SERIALIZED_FILE = "/home/fabiola/Desktop/Doutorado/DataMining/Projeto-Recomendacao/testBase.txt";
+    private static String USERS_SERIALIZED_FILE;
+    
+    private static Boolean IS_BOOLEAN = false;
+    
+    private static String PATH_RATES;
 
     private static Rating matrixUM[][];
 
@@ -43,13 +48,59 @@ public class TestBaseGenerator {
 
     private static List< Level > levels;
 
+    
+    private static boolean handleParams( String... args ) {
+
+        for ( String param : args ) {
+
+            String paramValue = param.substring( 2 );
+
+            switch ( param.charAt( 1 ) ) {
+                case 'T':
+                case 't':
+                    paramValue = !paramValue.endsWith( "/" ) ? paramValue.concat( "/" ) : paramValue;                    
+                    RATINGS_TEST_PATH = paramValue + "test/";
+                    new File( RATINGS_TEST_PATH ).mkdirs();
+                    RATINGS_TEST_PATH = RATINGS_TEST_PATH.concat( "ratings_testbase.txt" );
+                    RATINGS_TRAINING_PATH = paramValue + "training/";
+                    new File( RATINGS_TRAINING_PATH ).mkdirs();
+                    RATINGS_TRAINING_PATH = RATINGS_TRAINING_PATH.concat( "ratings_trainingbase.txt" );
+                    USERS_SERIALIZED_FILE = paramValue + "serializedInputs.txt";
+                    break;
+                case 'R':
+                case 'r':
+                    PATH_RATES = paramValue;
+                    break;
+                case 'B':
+                case 'b':
+                    IS_BOOLEAN = true;
+                    break;
+                default:
+                    return false;
+            }
+        }
+
+        if ( PATH_RATES == null || RATINGS_TEST_PATH == null || RATINGS_TRAINING_PATH == null || USERS_SERIALIZED_FILE == null ) {
+            return false;
+        }
+
+        return true;
+    }
 
     public static void main( String... args ) throws Exception {
-
-        matrixUM = MatrixLoader.loadMatrix( false );
+        
+        // setup params
+        if ( ! handleParams( args ) ) {
+            Printer.printHelp();
+            return;
+        }
+        Printer.printValues( PATH_RATES, RATINGS_TEST_PATH, RATINGS_TRAINING_PATH, USERS_SERIALIZED_FILE );
+        
+        
+        // load input
+        matrixUM = MatrixLoader.loadMatrix( IS_BOOLEAN, PATH_RATES );
         users = new ArrayList< User >();
         generate( matrixUM, users );  
-        //generateFromFile( matrixUM, users );
     }
     
     public static Rating[][] generateFromFile( Rating[][] matrixUM, List<User> users ) throws Exception {
