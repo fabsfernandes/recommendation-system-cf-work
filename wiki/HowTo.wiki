@@ -28,5 +28,6 @@ Now is just setup params and run it!
 
 = Details =
 
-Input file format: {{{<user_id>\t<movie_id>\t<rating>}}}
-Example: 
+* Input file format: {{{<user_id>\t<movie_id>\t<rating>}}}
+
+Example: https://recommendation-system-cf-work.googlecode.com/svn/trunk/recsys-cf/src/main/resources/ratings_example.txt
