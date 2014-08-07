@@ -2,11 +2,17 @@
 
 = Generating training and test files ==
 
-java -jar 
+The first step to be done is to generate training and test files based on input ratings. The command is:
+
+{{{java -cp recsys-cf.jar br.com.ufu.lsi.recsys.base.TestBaseGenerator -T/path/to/directory/in/which/the/files/will/be/created -R/path/to/ratings/file}}}
+
+After that, check if the dirs 'test' and 'training' were correctly created.
 
 = Running =
 
-java -jar recsys-cf.jar -R/path/to/ratings/file -P/path/to/output/predicted/rates/file
+Now is just setup params and run it!
+
+{{{java -jar recsys-cf.jar -R/path/to/ratings/file -P/path/to/output/predicted/rates/file}}}
 
 *Optional parameters (default value)
 
@@ -23,3 +29,4 @@ java -jar recsys-cf.jar -R/path/to/ratings/file -P/path/to/output/predicted/rate
 = Details =
 
 Input file format: {{{<user_id>\t<movie_id>\t<rating>}}}
+Example: 
