@@ -17,11 +17,12 @@ import br.com.ufu.lsi.recsys.model.UtilityMatrix;
 
 public class MatrixLoader {
 
-    private static final String PATH_RATES = "/home/fabiola/Desktop/Doutorado/DataMining/Projeto-Recomendacao/avaliacoes.csv";
+    //private static final String PATH_RATES = "/home/fabiola/Desktop/Doutorado/DataMining/Projeto-Recomendacao/avaliacoes.csv";
+	//private static final String PATH_RATES = "/Users/fabiola/Doutorado/Cricia/avaliacoesprefrecsocial.txt";
 
 
-    public static Rating[][] loadMatrix( boolean booleanRates ) {
-
+    public static Rating[][] loadMatrix( boolean booleanRates, String PATH_RATES ) {
+       
         UtilityMatrix utilityMatrix = new UtilityMatrix();
 
         BufferedReader br = null;
@@ -181,6 +182,8 @@ public class MatrixLoader {
                     Double normalizedValue = matrixUM[i][j].getValue() - usersAverage[i];
                     matrixUM[i][j].setNormalizedValue( normalizedValue );
                     matrixUM[i][j].setUserAverage( usersAverage[i] );
+                } else {
+                	matrixUM[i][j].setUserAverage( usersAverage[i] );
                 }
             }           
         }
@@ -203,6 +206,8 @@ public class MatrixLoader {
                     Double normalizedValue = matrixUM[i][j].getNormalizedValue() - itensAverage[j];
                     matrixUM[i][j].setNormalizedValue( normalizedValue );
                     matrixUM[i][j].setMovieAverage( itensAverage[j] );
+                } else {
+                	matrixUM[i][j].setMovieAverage( itensAverage[j] );
                 }
             }           
         }
