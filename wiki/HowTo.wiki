@@ -1,0 +1,25 @@
+#summary Project Description
+
+= Generating training and test files ==
+
+java -jar 
+
+= Running =
+
+java -jar recsys-cf.jar -R/path/to/ratings/file -P/path/to/output/predicted/rates/file
+
+*Optional parameters (default value)
+
+-T rmse threshold (0.8)
+
+-F number of latent factors (10)
+
+-O number of rounds for avoiding overfitting (5)
+
+-B if ratings should be treated as boolean (false)
+
+
+
+= Details =
+
+Input file format: {{{<user_id>\t<movie_id>\t<rating>}}}
