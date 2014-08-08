@@ -33,6 +33,8 @@ public class Main {
     private static String PATH_RATES;
 
     private static String PATH_PREDICTED_RATES;
+    
+    private static String PATH_PREFIX;
 
     private static Boolean IS_BOOLEAN = false;
 
@@ -63,7 +65,7 @@ public class Main {
 
         // load rates
         matrixUMOriginal = MatrixLoader.loadMatrix( IS_BOOLEAN, PATH_RATES );
-        matrixUM = TestBaseGenerator.generateFromFile( matrixUMOriginal, users );
+        matrixUM = TestBaseGenerator.generateFromFile( matrixUMOriginal, users, PATH_PREFIX );
 
         // run algorithm
         decompositionWithoutOverfitting();
@@ -438,6 +440,10 @@ public class Main {
                 case 'p':
                     PATH_PREDICTED_RATES = paramValue;
                     break;
+                case 'D':
+                case 'd':
+                    PATH_PREFIX = paramValue;
+                    break;
                 case 'B':
                 case 'b':
                     IS_BOOLEAN = true;
@@ -447,7 +453,7 @@ public class Main {
             }
         }
 
-        if ( PATH_RATES == null || PATH_PREDICTED_RATES == null ) {
+        if ( PATH_RATES == null || PATH_PREDICTED_RATES == null || PATH_PREFIX == null ) {
             return false;
         }
 
