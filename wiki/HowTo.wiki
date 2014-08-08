@@ -12,7 +12,7 @@ After that, check if the dirs 'test' and 'training' were correctly created.
 
 Now is just setup params and run it!
 
-{{{java -jar recsys-cf.jar -R/path/to/ratings/file -P/path/to/output/predicted/rates/file}}}
+{{{java -jar recsys-cf.jar -R/path/to/ratings/file -P/path/to/output/predicted/rates/file -D/path/to/directory/in/wich/files/were/created}}}
 
 *Optional parameters (default value)
 
