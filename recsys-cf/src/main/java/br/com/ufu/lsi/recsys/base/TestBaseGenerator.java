@@ -103,7 +103,14 @@ public class TestBaseGenerator {
         generate( matrixUM, users );  
     }
     
-    public static Rating[][] generateFromFile( Rating[][] matrixUM, List<User> users ) throws Exception {
+    public static Rating[][] generateFromFile( Rating[][] matrixUM, List<User> users, String pathPrefix ) throws Exception {
+        
+        if( RATINGS_TEST_PATH == null || RATINGS_TRAINING_PATH == null || USERS_SERIALIZED_FILE == null ) {         
+            pathPrefix = !pathPrefix.endsWith( "/" ) ? pathPrefix.concat( "/" ) : pathPrefix;  
+            RATINGS_TEST_PATH = pathPrefix + "test/ratings_testbase.txt";
+            RATINGS_TRAINING_PATH = pathPrefix + "training/ratings_trainingbase.txt";
+            USERS_SERIALIZED_FILE = pathPrefix + "serializedInputs.txt";
+        }
 
         TestBaseGenerator.matrixUM = matrixUM;
         TestBaseGenerator.users = users;
